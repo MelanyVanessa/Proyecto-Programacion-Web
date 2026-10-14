@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar producto · MELNE</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <a class="logo" href="index.html">
+      <strong>MELNE</strong>
+      <span>PERFUMES &amp; ESENCIAS</span>
+    </a>
+    <div class="header-derecha">
+      <span class="header-acceso">Área de gestión · Acceso autorizado</span>
+      <div class="usuario">
+        <span class="avatar">A</span>
+        <span>Administrador</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="barra-movil">
+    <strong>Productos</strong>
+    <small>Catálogo e inventario</small>
+  </div>
+
+  <div class="contenedor">
+    <aside class="sidebar">
+      <nav>
+        <p class="sidebar-titulo">ADMINISTRACIÓN</p>
+        <a class="menu-item" href="index.html">
+          <strong>Productos</strong>
+          <small>Catálogo e inventario</small>
+        </a>
+      </nav>
+      <div class="sidebar-pie">
+        <strong>Un catálogo bien cuidado.</strong>
+        Gestiona la información que presenta la tienda MELNE.
+        <small>Solo personal autorizado</small>
+      </div>
+    </aside>
+
+    <main class="principal">
+      <p class="migas">03 / EDICIÓN</p>
+      <div class="titulo-pagina">
+        <div>
+          <h1>Editar producto</h1>
+          <p class="subtitulo" id="subtitulo">212 AQUA · Actualiza los datos del registro MEL-H001.</p>
+        </div>
+      </div>
+
+      <div class="form-layout">
+        <form id="form-producto" class="panel" data-modo="editar" novalidate>
+          <p class="obligatorios">Los campos con * son obligatorios. <span class="etiqueta-editando">Editando</span></p>
+
+          <div id="mensaje" class="mensaje"></div>
+
+          <div id="resumen-errores" class="resumen-errores" role="alert">
+            <strong>No se pudieron guardar los cambios</strong>
+            <span id="resumen-texto"></span>
+            <ul id="resumen-lista"></ul>
+            <small id="resumen-pie">Los demás datos se conservan. El registro 212 AQUA no se ha modificado.</small>
+          </div>
+
+          <h2 class="seccion-titulo"><span>01</span> Información del producto</h2>
+          <div class="fila">
+            <div class="campo">
+              <label for="codigo">Código *</label>
+              <input type="text" id="codigo" name="codigo" value="MEL-H001">
+              <span class="error" id="error-codigo"></span>
+              <span class="ayuda">Identificador interno único. Ej.: MEL-H001.</span>
+            </div>
+            <div class="campo">
+              <label for="nombre">Nombre *</label>
+              <input type="text" id="nombre" name="nombre" value="212 AQUA">
+              <span class="error" id="error-nombre"></span>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="categoria">Categoría *</label>
+            <select id="categoria" name="categoria">
+              <option value="">Selecciona una categoría</option>
+              <option value="Hombre" selected>Hombre</option>
+              <option value="Mujer">Mujer</option>
+              <option value="Lujo">Lujo</option>
+            </select>
+            <span class="error" id="error-categoria"></span>
+            <span class="ayuda">Opciones: Hombre, Mujer o Lujo.</span>
+          </div>
+
+          <div class="campo">
+            <label for="descripcion">Descripción aromática *</label>
+            <textarea id="descripcion" name="descripcion">Amaderado, calido especiado, citrico</textarea>
+            <span class="error" id="error-descripcion"></span>
+            <span class="ayuda">Describe las notas y el carácter de la fragancia.</span>
+          </div>
+
+          <h2 class="seccion-titulo"><span>02</span> Precio e inventario</h2>
+          <div class="fila">
+            <div class="campo">
+              <label for="precio">Precio (COP) *</label>
+              <input type="text" id="precio" name="precio" inputmode="numeric" value="80000">
+              <span class="error" id="error-precio"></span>
+              <span class="ayuda">Pesos colombianos. Debe ser mayor que 0.</span>
+            </div>
+            <div class="campo">
+              <label for="cantidad">Cantidad disponible *</label>
+              <input type="text" id="cantidad" name="cantidad" inputmode="numeric" value="24">
+              <span class="error" id="error-cantidad"></span>
+              <span class="ayuda">Número entero igual o mayor que 0.</span>
+            </div>
+          </div>
+
+          <h2 class="seccion-titulo"><span>03</span> Presentación y visibilidad</h2>
+          <div class="campo">
+            <label for="imagen">Imagen (opcional)</label>
+            <div class="archivo">
+              <div>
+                <span class="archivo-nombre" id="archivo-nombre">212-aqua.jpg</span>
+                <span class="ayuda">Imagen asociada al producto</span>
+              </div>
+              <label for="imagen" class="btn btn-secundario btn-chico">Cambiar imagen</label>
+              <input type="file" id="imagen" name="imagen" accept=".jpg,.jpeg,.png">
+            </div>
+            <span class="error" id="error-imagen"></span>
+          </div>
+
+          <div class="campo">
+            <label for="estado">Estado *</label>
+            <select id="estado" name="estado">
+              <option value="">Selecciona un estado</option>
+              <option value="Activo" selected>Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+            <span class="error" id="error-estado"></span>
+            <span class="ayuda">Activo: visible en la tienda. Inactivo: oculto, sin borrar el registro.</span>
+          </div>
+
+          <div class="form-botones">
+            <a class="btn btn-secundario" href="index.html">Cancelar</a>
+            <button type="submit" class="btn btn-primario">Guardar cambios</button>
+          </div>
+        </form>
+
+        <aside class="consejos">
+          <h3>Cuida cada detalle</h3>
+          <p id="consejo-edicion">Estás actualizando 212 AQUA, código MEL-H001. Revisa los datos antes de guardar los cambios.</p>
+          <p>El precio debe ser positivo y las existencias no pueden ser negativas ni tener decimales.</p>
+          <p>La imagen es opcional. El estado define si el producto aparece en la tienda.</p>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">MELNE · Administración de productos</footer>
+
+  <script src="js/formulario.js"></script>
+</body>
+</html>

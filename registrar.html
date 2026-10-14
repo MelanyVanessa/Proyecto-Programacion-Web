@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar producto · MELNE</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <a class="logo" href="index.html">
+      <strong>MELNE</strong>
+      <span>PERFUMES &amp; ESENCIAS</span>
+    </a>
+    <div class="header-derecha">
+      <span class="header-acceso">Área de gestión · Acceso autorizado</span>
+      <div class="usuario">
+        <span class="avatar">A</span>
+        <span>Administrador</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="barra-movil">
+    <strong>Productos</strong>
+    <small>Catálogo e inventario</small>
+  </div>
+
+  <div class="contenedor">
+    <aside class="sidebar">
+      <nav>
+        <p class="sidebar-titulo">ADMINISTRACIÓN</p>
+        <a class="menu-item" href="index.html">
+          <strong>Productos</strong>
+          <small>Catálogo e inventario</small>
+        </a>
+      </nav>
+      <div class="sidebar-pie">
+        <strong>Un catálogo bien cuidado.</strong>
+        Gestiona la información que presenta la tienda MELNE.
+        <small>Solo personal autorizado</small>
+      </div>
+    </aside>
+
+    <main class="principal">
+      <p class="migas">02 / REGISTRO</p>
+      <div class="titulo-pagina">
+        <div>
+          <h1>Registrar producto</h1>
+          <p class="subtitulo" id="subtitulo">Añade una nueva fragancia al catálogo de MELNE.</p>
+        </div>
+      </div>
+
+      <div class="form-layout">
+        <form id="form-producto" class="panel" data-modo="registrar" novalidate>
+          <p class="obligatorios">Los campos con * son obligatorios.</p>
+
+          <div id="mensaje" class="mensaje"></div>
+
+          <div id="resumen-errores" class="resumen-errores" role="alert">
+            <strong>No se pudo registrar el producto</strong>
+            <span id="resumen-texto"></span>
+            <ul id="resumen-lista"></ul>
+            <small>Los demás datos ingresados se conservan.</small>
+          </div>
+
+          <h2 class="seccion-titulo"><span>01</span> Información del producto</h2>
+          <div class="fila">
+            <div class="campo">
+              <label for="codigo">Código *</label>
+              <input type="text" id="codigo" name="codigo">
+              <span class="error" id="error-codigo"></span>
+              <span class="ayuda">Identificador interno único. Ej.: MEL-H001.</span>
+            </div>
+            <div class="campo">
+              <label for="nombre">Nombre *</label>
+              <input type="text" id="nombre" name="nombre">
+              <span class="error" id="error-nombre"></span>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="categoria">Categoría *</label>
+            <select id="categoria" name="categoria">
+              <option value="">Selecciona una categoría</option>
+              <option value="Hombre">Hombre</option>
+              <option value="Mujer">Mujer</option>
+              <option value="Lujo">Lujo</option>
+            </select>
+            <span class="error" id="error-categoria"></span>
+            <span class="ayuda">Opciones: Hombre, Mujer o Lujo.</span>
+          </div>
+
+          <div class="campo">
+            <label for="descripcion">Descripción aromática *</label>
+            <textarea id="descripcion" name="descripcion"></textarea>
+            <span class="error" id="error-descripcion"></span>
+            <span class="ayuda">Describe las notas y el carácter de la fragancia.</span>
+          </div>
+
+          <h2 class="seccion-titulo"><span>02</span> Precio e inventario</h2>
+          <div class="fila">
+            <div class="campo">
+              <label for="precio">Precio (COP) *</label>
+              <input type="text" id="precio" name="precio" inputmode="numeric">
+              <span class="error" id="error-precio"></span>
+              <span class="ayuda">Pesos colombianos. Debe ser mayor que 0.</span>
+            </div>
+            <div class="campo">
+              <label for="cantidad">Cantidad disponible *</label>
+              <input type="text" id="cantidad" name="cantidad" inputmode="numeric">
+              <span class="error" id="error-cantidad"></span>
+              <span class="ayuda">Número entero igual o mayor que 0.</span>
+            </div>
+          </div>
+
+          <h2 class="seccion-titulo"><span>03</span> Presentación y visibilidad</h2>
+          <div class="campo">
+            <label for="imagen">Imagen (opcional)</label>
+            <div class="archivo">
+              <div>
+                <span class="archivo-nombre" id="archivo-nombre">Ningún archivo seleccionado</span>
+                <span class="ayuda">JPG o PNG · Máximo 5 MB</span>
+              </div>
+              <label for="imagen" class="btn btn-secundario btn-chico">Elegir imagen</label>
+              <input type="file" id="imagen" name="imagen" accept=".jpg,.jpeg,.png">
+            </div>
+            <span class="error" id="error-imagen"></span>
+          </div>
+
+          <div class="campo">
+            <label for="estado">Estado *</label>
+            <select id="estado" name="estado">
+              <option value="">Selecciona un estado</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+            <span class="error" id="error-estado"></span>
+            <span class="ayuda">Activo: visible en la tienda. Inactivo: oculto, sin borrar el registro.</span>
+          </div>
+
+          <div class="form-botones">
+            <a class="btn btn-secundario" href="index.html">Cancelar</a>
+            <button type="submit" class="btn btn-primario">Registrar producto</button>
+          </div>
+        </form>
+
+        <aside class="consejos">
+          <h3>Antes de guardar</h3>
+          <p>Revisa el código, la categoría y las notas aromáticas para mantener un catálogo claro.</p>
+          <p>El precio debe ser positivo y las existencias no pueden ser negativas ni tener decimales.</p>
+          <p>La imagen es opcional. El estado define si el producto aparece en la tienda.</p>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">MELNE · Administración de productos</footer>
+
+  <script src="js/formulario.js"></script>
+</body>
+</html>

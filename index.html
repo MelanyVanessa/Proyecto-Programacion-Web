@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos · MELNE</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <a class="logo" href="index.html">
+      <strong>MELNE</strong>
+      <span>PERFUMES &amp; ESENCIAS</span>
+    </a>
+    <div class="header-derecha">
+      <span class="header-acceso">Área de gestión · Acceso autorizado</span>
+      <div class="usuario">
+        <span class="avatar">A</span>
+        <span>Administrador</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="barra-movil">
+    <strong>Productos</strong>
+    <small>Catálogo e inventario</small>
+  </div>
+
+  <div class="contenedor">
+    <aside class="sidebar">
+      <nav>
+        <p class="sidebar-titulo">ADMINISTRACIÓN</p>
+        <a class="menu-item" href="index.html">
+          <strong>Productos</strong>
+          <small>Catálogo e inventario</small>
+        </a>
+      </nav>
+      <div class="sidebar-pie">
+        <strong>Un catálogo bien cuidado.</strong>
+        Gestiona la información que presenta la tienda MELNE.
+        <small>Solo personal autorizado</small>
+      </div>
+    </aside>
+
+    <main class="principal">
+      <p class="migas">01 / LISTADO</p>
+      <div class="titulo-pagina">
+        <div>
+          <h1>Productos</h1>
+          <p class="subtitulo">Mantén tu catálogo y sus existencias al día.</p>
+        </div>
+        <a class="btn btn-primario" href="registrar.html">+ Registrar producto</a>
+      </div>
+
+      <div id="mensaje" class="mensaje"></div>
+
+      <section class="panel buscador">
+        <label for="buscar">Buscar productos</label>
+        <input type="search" id="buscar" placeholder="Buscar por nombre o código">
+        <div class="filtros">
+          <button type="button" class="filtro activo" data-filtro="Todos">Todos</button>
+          <button type="button" class="filtro" data-filtro="Hombre">Hombre</button>
+          <button type="button" class="filtro" data-filtro="Mujer">Mujer</button>
+          <button type="button" class="filtro" data-filtro="Lujo">Lujo</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="tabla-info">
+          <span><span id="total">6</span> productos guardados</span>
+          <span>Precio en COP</span>
+        </div>
+
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Precio (COP)</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="lista-productos">
+            <tr data-codigo="MEL-H001" data-nombre="212 AQUA" data-categoria="Hombre" data-descripcion="Amaderado, calido especiado, citrico" data-precio="80.000" data-cantidad="24">
+              <td class="td-codigo codigo">MEL-H001</td>
+              <td class="td-nombre nombre">
+                <strong>212 AQUA</strong>
+                <span class="categoria-movil">Hombre</span>
+                <small>Amaderado, calido especiado, citrico</small>
+              </td>
+              <td class="td-categoria">Hombre</td>
+              <td class="td-precio">$80.000</td>
+              <td class="td-cantidad">24 <span class="disponibles">disponibles</span></td>
+              <td class="td-estado"><span class="estado">Activo</span></td>
+              <td class="td-acciones">
+                <div class="acciones">
+                  <a class="btn btn-chico btn-editar" href="editar.html?codigo=MEL-H001">Editar</a>
+                  <button type="button" class="btn btn-chico btn-eliminar">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr data-codigo="MEL-H002" data-nombre="212 BLACK" data-categoria="Hombre" data-descripcion="Aromatico, avainillado, especiado suave" data-precio="80.000" data-cantidad="18">
+              <td class="td-codigo codigo">MEL-H002</td>
+              <td class="td-nombre nombre">
+                <strong>212 BLACK</strong>
+                <span class="categoria-movil">Hombre</span>
+                <small>Aromatico, avainillado, especiado suave</small>
+              </td>
+              <td class="td-categoria">Hombre</td>
+              <td class="td-precio">$80.000</td>
+              <td class="td-cantidad">18 <span class="disponibles">disponibles</span></td>
+              <td class="td-estado"><span class="estado">Activo</span></td>
+              <td class="td-acciones">
+                <div class="acciones">
+                  <a class="btn btn-chico btn-editar" href="editar.html?codigo=MEL-H002">Editar</a>
+                  <button type="button" class="btn btn-chico btn-eliminar">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr data-codigo="MEL-H003" data-nombre="212 RED" data-categoria="Hombre" data-descripcion="Dulce, aromático, fresco especiado" data-precio="80.000" data-cantidad="12">
+              <td class="td-codigo codigo">MEL-H003</td>
+              <td class="td-nombre nombre">
+                <strong>212 RED</strong>
+                <span class="categoria-movil">Hombre</span>
+                <small>Dulce, aromático, fresco especiado</small>
+              </td>
+              <td class="td-categoria">Hombre</td>
+              <td class="td-precio">$80.000</td>
+              <td class="td-cantidad">12 <span class="disponibles">disponibles</span></td>
+              <td class="td-estado"><span class="estado">Activo</span></td>
+              <td class="td-acciones">
+                <div class="acciones">
+                  <a class="btn btn-chico btn-editar" href="editar.html?codigo=MEL-H003">Editar</a>
+                  <button type="button" class="btn btn-chico btn-eliminar">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr data-codigo="MEL-M001" data-nombre="GOOD GIRL BLUSH" data-categoria="Mujer" data-descripcion="Floral, avainillado, cítrico" data-precio="80.000" data-cantidad="16">
+              <td class="td-codigo codigo">MEL-M001</td>
+              <td class="td-nombre nombre">
+                <strong>GOOD GIRL BLUSH</strong>
+                <span class="categoria-movil">Mujer</span>
+                <small>Floral, avainillado, cítrico</small>
+              </td>
+              <td class="td-categoria">Mujer</td>
+              <td class="td-precio">$80.000</td>
+              <td class="td-cantidad">16 <span class="disponibles">disponibles</span></td>
+              <td class="td-estado"><span class="estado">Activo</span></td>
+              <td class="td-acciones">
+                <div class="acciones">
+                  <a class="btn btn-chico btn-editar" href="editar.html?codigo=MEL-M001">Editar</a>
+                  <button type="button" class="btn btn-chico btn-eliminar">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr data-codigo="MEL-M002" data-nombre="LA BOMBA" data-categoria="Mujer" data-descripcion="Floral, afrutado, ambarado" data-precio="90.000" data-cantidad="8">
+              <td class="td-codigo codigo">MEL-M002</td>
+              <td class="td-nombre nombre">
+                <strong>LA BOMBA</strong>
+                <span class="categoria-movil">Mujer</span>
+                <small>Floral, afrutado, ambarado</small>
+              </td>
+              <td class="td-categoria">Mujer</td>
+              <td class="td-precio">$90.000</td>
+              <td class="td-cantidad">8 <span class="disponibles">disponibles</span></td>
+              <td class="td-estado"><span class="estado">Activo</span></td>
+              <td class="td-acciones">
+                <div class="acciones">
+                  <a class="btn btn-chico btn-editar" href="editar.html?codigo=MEL-M002">Editar</a>
+                  <button type="button" class="btn btn-chico btn-eliminar">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+            <tr data-codigo="MEL-H004" data-nombre="LE MALE ELIXIR" data-categoria="Hombre" data-descripcion="Cálida, dulce, sensual" data-precio="95.000" data-cantidad="10">
+              <td class="td-codigo codigo">MEL-H004</td>
+              <td class="td-nombre nombre">
+                <strong>LE MALE ELIXIR</strong>
+                <span class="categoria-movil">Hombre</span>
+                <small>Cálida, dulce, sensual</small>
+              </td>
+              <td class="td-categoria">Hombre</td>
+              <td class="td-precio">$95.000</td>
+              <td class="td-cantidad">10 <span class="disponibles">disponibles</span></td>
+              <td class="td-estado"><span class="estado">Activo</span></td>
+              <td class="td-acciones">
+                <div class="acciones">
+                  <a class="btn btn-chico btn-editar" href="editar.html?codigo=MEL-H004">Editar</a>
+                  <button type="button" class="btn btn-chico btn-eliminar">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p id="sin-resultados" class="sin-resultados">No se encontraron productos.</p>
+
+        <div class="paginacion">
+          <span>Mostrando <span id="mostrando">6</span> de <span id="total-pie">6</span> productos</span>
+          <span class="pagina">1</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">MELNE · Administración de productos</footer>
+
+  <!-- Modal de confirmación de eliminación -->
+  <div class="modal-fondo" id="modal-eliminar">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <h2 id="modal-titulo">¿Eliminar este producto?</h2>
+      <p>Vas a retirar este registro del catálogo y de la gestión de inventario.</p>
+      <div class="modal-producto">
+        <strong id="modal-nombre"></strong>
+        <p id="modal-detalle"></p>
+        <p id="modal-descripcion"></p>
+        <p id="modal-precio"></p>
+      </div>
+      <p class="modal-aviso">Esta acción no se puede deshacer.</p>
+      <p>Si solo deseas ocultarlo de la tienda, cambia su estado a Inactivo desde Editar.</p>
+      <div class="modal-botones">
+        <button type="button" class="btn btn-secundario" id="cancelar-eliminar">Cancelar</button>
+        <button type="button" class="btn btn-peligro" id="confirmar-eliminar">Eliminar producto</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/productos.js"></script>
+</body>
+</html>
