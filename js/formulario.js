@@ -1,4 +1,5 @@
 // Formulario de registro y edición de productos: validación con mensajes en la página
+// y guardado de los datos
 
 const form = document.getElementById("form-producto");
 const modo = form.dataset.modo; // "registrar" o "editar"
@@ -10,41 +11,53 @@ const mensaje = document.getElementById("mensaje");
 
 const inputImagen = document.getElementById("imagen");
 const archivoNombre = document.getElementById("archivo-nombre");
+const SIN_ARCHIVO = "Ningún archivo seleccionado";
 
-// Datos de ejemplo (todavía no se guardan en ningún lado)
-const productos = {
-  "MEL-H001": { nombre: "212 AQUA", categoria: "Hombre", descripcion: "Amaderado, calido especiado, citrico", precio: 80000, cantidad: 24, imagen: "212-aqua.jpg" },
-  "MEL-H002": { nombre: "212 BLACK", categoria: "Hombre", descripcion: "Aromatico, avainillado, especiado suave", precio: 80000, cantidad: 18, imagen: "212-black.jpg" },
-  "MEL-H003": { nombre: "212 RED", categoria: "Hombre", descripcion: "Dulce, aromático, fresco especiado", precio: 80000, cantidad: 12, imagen: "212-red.jpg" },
-  "MEL-M001": { nombre: "GOOD GIRL BLUSH", categoria: "Mujer", descripcion: "Floral, avainillado, cítrico", precio: 80000, cantidad: 16, imagen: "good-girl-blush.jpg" },
-  "MEL-M002": { nombre: "LA BOMBA", categoria: "Mujer", descripcion: "Floral, afrutado, ambarado", precio: 90000, cantidad: 8, imagen: "la-bomba.jpg" },
-  "MEL-H004": { nombre: "LE MALE ELIXIR", categoria: "Hombre", descripcion: "Cálida, dulce, sensual", precio: 95000, cantidad: 10, imagen: "le-male-elixir.jpg" }
-};
+// En edición: código e imagen que tenía el producto antes de modificarlo
+let codigoOriginal = "";
+let imagenActual = "";
 
 // ----- En modo edición, cargar el producto indicado en la URL -----
-let codigoOriginal = "MEL-H001";
+function mostrarTextosEdicion(producto) {
+  document.getElementById("subtitulo").textContent =
+    producto.nombre + " · Actualiza los datos del registro " + producto.codigo + ".";
+  document.getElementById("consejo-edicion").textContent =
+    "Estás actualizando " + producto.nombre + ", código " + producto.codigo + ". Revisa los datos antes de guardar los cambios.";
+  document.getElementById("resumen-pie").textContent =
+    "Los demás datos se conservan. El registro " + producto.nombre + " no se ha modificado.";
+}
+
+function llenarFormulario(producto) {
+  form.codigo.value = producto.codigo;
+  form.nombre.value = producto.nombre;
+  form.categoria.value = producto.categoria;
+  form.descripcion.value = producto.descripcion;
+  form.precio.value = producto.precio;
+  form.cantidad.value = producto.cantidad;
+  form.estado.value = producto.estado;
+  archivoNombre.textContent = producto.imagen || SIN_ARCHIVO;
+}
+
+function cargarProductoAEditar() {
+  const codigo = new URLSearchParams(window.location.search).get("codigo");
+  const producto = buscarProducto(codigo);
+  if (!producto) {
+    window.location.href = "index.html"; // no existe: volver al listado
+    return;
+  }
+  codigoOriginal = producto.codigo;
+  imagenActual = producto.imagen;
+  llenarFormulario(producto);
+  mostrarTextosEdicion(producto);
+}
 
 if (modo === "editar") {
-  const params = new URLSearchParams(window.location.search);
-  const codigo = params.get("codigo");
-  if (codigo && productos[codigo]) {
-    codigoOriginal = codigo;
-    const p = productos[codigo];
-    form.codigo.value = codigo;
-    form.nombre.value = p.nombre;
-    form.categoria.value = p.categoria;
-    form.descripcion.value = p.descripcion;
-    form.precio.value = p.precio;
-    form.cantidad.value = p.cantidad;
-    archivoNombre.textContent = p.imagen;
-  }
-  const nombreOriginal = productos[codigoOriginal].nombre;
-  document.getElementById("subtitulo").textContent =
-    nombreOriginal + " · Actualiza los datos del registro " + codigoOriginal + ".";
-  document.getElementById("consejo-edicion").textContent =
-    "Estás actualizando " + nombreOriginal + ", código " + codigoOriginal + ". Revisa los datos antes de guardar los cambios.";
-  document.getElementById("resumen-pie").textContent =
-    "Los demás datos se conservan. El registro " + nombreOriginal + " no se ha modificado.";
+  cargarProductoAEditar();
+}
+
+// "250.000" o "250000" -> 250000; "80,5" -> 80.5 (el punto es separador de miles)
+function convertirPrecio(texto) {
+  return Number(texto.trim().replace(/\./g, "").replace(",", "."));
 }
 
 // ----- Reglas de validación -----
@@ -54,10 +67,10 @@ const reglas = {
     etiqueta: "Código",
     resumen: "escribe un código válido.",
     validar: function (valor) {
+      const codigo = valor.toUpperCase();
       if (valor === "") return "Escribe el código del producto.";
-      if (!/^MEL-[A-Z]\d{3}$/.test(valor.toUpperCase())) return "Usa el formato MEL-H001.";
-      const repetido = productos[valor.toUpperCase()] && valor.toUpperCase() !== (modo === "editar" ? codigoOriginal : "");
-      if (repetido) return "Ya existe un producto con este código.";
+      if (!/^MEL-[A-Z]\d{3}$/.test(codigo)) return "Usa el formato MEL-H001.";
+      if (existeCodigo(codigo) && codigo !== codigoOriginal) return "Ya existe un producto con este código.";
       return "";
     }
   },
@@ -89,7 +102,7 @@ const reglas = {
     etiqueta: "Precio",
     resumen: "debe ser mayor que 0.",
     validar: function (valor) {
-      const numero = Number(valor.replace(",", "."));
+      const numero = convertirPrecio(valor);
       if (valor === "" || isNaN(numero) || numero <= 0) return "Ingresa un precio mayor que 0 COP.";
       return "";
     }
@@ -134,45 +147,74 @@ function validarCampo(nombre) {
   return error;
 }
 
+// Valida todos los campos y devuelve los nombres de los que tienen error
+function validarFormulario() {
+  return Object.keys(reglas).filter(function (nombre) {
+    return validarCampo(nombre) !== "";
+  });
+}
+
+function mostrarResumenErrores(errores) {
+  resumenTexto.textContent = errores.length === 1
+    ? "Corrige este campo para continuar:"
+    : "Corrige estos " + errores.length + " campos para continuar:";
+  resumenLista.innerHTML = "";
+  errores.forEach(function (nombre) {
+    const texto = reglas[nombre].etiqueta + ": " + reglas[nombre].resumen;
+    resumenLista.appendChild(crearElemento("li", "", texto));
+  });
+  resumen.classList.add("visible");
+  resumen.scrollIntoView({ behavior: "smooth", block: "start" });
+  form.elements[errores[0]].focus({ preventScroll: true });
+}
+
+// Arma el objeto producto con los valores ya validados del formulario
+function leerProductoDelFormulario() {
+  return {
+    codigo: form.codigo.value.trim().toUpperCase(),
+    nombre: form.nombre.value.trim(),
+    categoria: form.categoria.value,
+    descripcion: form.descripcion.value.trim(),
+    precio: convertirPrecio(form.precio.value),
+    cantidad: Number(form.cantidad.value.trim()),
+    imagen: inputImagen.files[0] ? inputImagen.files[0].name : imagenActual,
+    estado: form.estado.value
+  };
+}
+
+function registrarProducto(producto) {
+  agregarProducto(producto);
+  form.reset();
+  archivoNombre.textContent = SIN_ARCHIVO;
+  mostrarMensaje(mensaje, "El producto " + producto.nombre + " se registró correctamente.");
+}
+
+function guardarCambios(producto) {
+  actualizarProducto(codigoOriginal, producto);
+  codigoOriginal = producto.codigo;
+  imagenActual = producto.imagen;
+  mostrarTextosEdicion(producto);
+  mostrarMensaje(mensaje, "Los cambios de " + producto.nombre + " se guardaron correctamente.");
+}
+
 // ----- Envío del formulario -----
 form.addEventListener("submit", function (evento) {
   evento.preventDefault();
-  mensaje.classList.remove("visible");
+  ocultarMensaje(mensaje);
 
-  const errores = [];
-  Object.keys(reglas).forEach(function (nombre) {
-    if (validarCampo(nombre) !== "") {
-      errores.push(nombre);
-    }
-  });
-
+  const errores = validarFormulario();
   if (errores.length > 0) {
-    resumenTexto.textContent = errores.length === 1
-      ? "Corrige este campo para continuar:"
-      : "Corrige estos " + errores.length + " campos para continuar:";
-    resumenLista.innerHTML = "";
-    errores.forEach(function (nombre) {
-      const li = document.createElement("li");
-      li.textContent = reglas[nombre].etiqueta + ": " + reglas[nombre].resumen;
-      resumenLista.appendChild(li);
-    });
-    resumen.classList.add("visible");
-    resumen.scrollIntoView({ behavior: "smooth", block: "start" });
-    form.elements[errores[0]].focus({ preventScroll: true });
+    mostrarResumenErrores(errores);
     return;
   }
 
-  // Todo correcto (en esta entrega los datos aún no se guardan)
   resumen.classList.remove("visible");
+  const producto = leerProductoDelFormulario();
   if (modo === "registrar") {
-    mensaje.textContent = "El producto " + form.nombre.value.trim() + " se registró correctamente.";
-    form.reset();
-    archivoNombre.textContent = "Ningún archivo seleccionado";
+    registrarProducto(producto);
   } else {
-    mensaje.textContent = "Los cambios de " + form.nombre.value.trim() + " se guardaron correctamente.";
+    guardarCambios(producto);
   }
-  mensaje.classList.add("visible");
-  mensaje.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 // Quitar el error del campo en cuanto el usuario lo corrige
@@ -188,6 +230,6 @@ Object.keys(reglas).forEach(function (nombre) {
 
 // Mostrar el nombre del archivo elegido
 inputImagen.addEventListener("change", function () {
-  archivoNombre.textContent = inputImagen.files[0] ? inputImagen.files[0].name : "Ningún archivo seleccionado";
+  archivoNombre.textContent = inputImagen.files[0] ? inputImagen.files[0].name : (imagenActual || SIN_ARCHIVO);
   validarCampo("imagen");
 });

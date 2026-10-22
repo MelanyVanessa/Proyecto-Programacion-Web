@@ -48,7 +48,7 @@
       <div class="titulo-pagina">
         <div>
           <h1>Editar producto</h1>
-          <p class="subtitulo" id="subtitulo">212 AQUA · Actualiza los datos del registro MEL-H001.</p>
+          <p class="subtitulo" id="subtitulo">Actualiza los datos del producto.</p>
         </div>
       </div>
 
@@ -62,20 +62,20 @@
             <strong>No se pudieron guardar los cambios</strong>
             <span id="resumen-texto"></span>
             <ul id="resumen-lista"></ul>
-            <small id="resumen-pie">Los demás datos se conservan. El registro 212 AQUA no se ha modificado.</small>
+            <small id="resumen-pie">Los demás datos se conservan. El registro no se ha modificado.</small>
           </div>
 
           <h2 class="seccion-titulo"><span>01</span> Información del producto</h2>
           <div class="fila">
             <div class="campo">
               <label for="codigo">Código *</label>
-              <input type="text" id="codigo" name="codigo" value="MEL-H001">
+              <input type="text" id="codigo" name="codigo">
               <span class="error" id="error-codigo"></span>
               <span class="ayuda">Identificador interno único. Ej.: MEL-H001.</span>
             </div>
             <div class="campo">
               <label for="nombre">Nombre *</label>
-              <input type="text" id="nombre" name="nombre" value="212 AQUA">
+              <input type="text" id="nombre" name="nombre">
               <span class="error" id="error-nombre"></span>
             </div>
           </div>
@@ -84,7 +84,7 @@
             <label for="categoria">Categoría *</label>
             <select id="categoria" name="categoria">
               <option value="">Selecciona una categoría</option>
-              <option value="Hombre" selected>Hombre</option>
+              <option value="Hombre">Hombre</option>
               <option value="Mujer">Mujer</option>
               <option value="Lujo">Lujo</option>
             </select>
@@ -94,7 +94,7 @@
 
           <div class="campo">
             <label for="descripcion">Descripción aromática *</label>
-            <textarea id="descripcion" name="descripcion">Amaderado, calido especiado, citrico</textarea>
+            <textarea id="descripcion" name="descripcion"></textarea>
             <span class="error" id="error-descripcion"></span>
             <span class="ayuda">Describe las notas y el carácter de la fragancia.</span>
           </div>
@@ -103,13 +103,13 @@
           <div class="fila">
             <div class="campo">
               <label for="precio">Precio (COP) *</label>
-              <input type="text" id="precio" name="precio" inputmode="numeric" value="80000">
+              <input type="text" id="precio" name="precio" inputmode="numeric">
               <span class="error" id="error-precio"></span>
               <span class="ayuda">Pesos colombianos. Debe ser mayor que 0.</span>
             </div>
             <div class="campo">
               <label for="cantidad">Cantidad disponible *</label>
-              <input type="text" id="cantidad" name="cantidad" inputmode="numeric" value="24">
+              <input type="text" id="cantidad" name="cantidad" inputmode="numeric">
               <span class="error" id="error-cantidad"></span>
               <span class="ayuda">Número entero igual o mayor que 0.</span>
             </div>
@@ -120,7 +120,7 @@
             <label for="imagen">Imagen (opcional)</label>
             <div class="archivo">
               <div>
-                <span class="archivo-nombre" id="archivo-nombre">212-aqua.jpg</span>
+                <span class="archivo-nombre" id="archivo-nombre">Ningún archivo seleccionado</span>
                 <span class="ayuda">Imagen asociada al producto</span>
               </div>
               <label for="imagen" class="btn btn-secundario btn-chico">Cambiar imagen</label>
@@ -133,7 +133,7 @@
             <label for="estado">Estado *</label>
             <select id="estado" name="estado">
               <option value="">Selecciona un estado</option>
-              <option value="Activo" selected>Activo</option>
+              <option value="Activo">Activo</option>
               <option value="Inactivo">Inactivo</option>
             </select>
             <span class="error" id="error-estado"></span>
@@ -148,7 +148,7 @@
 
         <aside class="consejos">
           <h3>Cuida cada detalle</h3>
-          <p id="consejo-edicion">Estás actualizando 212 AQUA, código MEL-H001. Revisa los datos antes de guardar los cambios.</p>
+          <p id="consejo-edicion">Revisa los datos antes de guardar los cambios.</p>
           <p>El precio debe ser positivo y las existencias no pueden ser negativas ni tener decimales.</p>
           <p>La imagen es opcional. El estado define si el producto aparece en la tienda.</p>
         </aside>
@@ -158,6 +158,9 @@
 
   <footer class="footer">MELNE · Administración de productos</footer>
 
+  <script src="js/utilidades.js"></script>
+  <script src="js/almacenamiento.js"></script>
+  <script src="js/datos.js"></script>
   <script src="js/formulario.js"></script>
 </body>
 </html>

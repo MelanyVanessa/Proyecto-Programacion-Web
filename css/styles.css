@@ -352,6 +352,11 @@ h1 {
   font-weight: 600;
 }
 
+.estado.inactivo {
+  background: #eceef1;
+  color: var(--gris);
+}
+
 .acciones {
   display: flex;
   gap: 6px;
