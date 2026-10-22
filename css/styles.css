@@ -596,6 +596,24 @@ textarea {
   font-size: 14px;
 }
 
+.archivo-info {
+  flex: 1;
+}
+
+/* Miniatura de la imagen elegida; se muestra solo cuando hay una */
+.vista-previa {
+  display: none;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+}
+
+.vista-previa.visible {
+  display: block;
+}
+
 .form-botones {
   display: flex;
   justify-content: flex-end;

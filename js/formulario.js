@@ -11,6 +11,7 @@ const mensaje = document.getElementById("mensaje");
 
 const inputImagen = document.getElementById("imagen");
 const archivoNombre = document.getElementById("archivo-nombre");
+const vistaPrevia = document.getElementById("vista-previa");
 const SIN_ARCHIVO = "Ningún archivo seleccionado";
 
 // En edición: código e imagen que tenía el producto antes de modificarlo
@@ -186,6 +187,7 @@ function registrarProducto(producto) {
   agregarProducto(producto);
   form.reset();
   archivoNombre.textContent = SIN_ARCHIVO;
+  ocultarVistaPrevia();
   mostrarMensaje(mensaje, "El producto " + producto.nombre + " se registró correctamente.");
 }
 
@@ -228,8 +230,28 @@ Object.keys(reglas).forEach(function (nombre) {
   });
 });
 
-// Mostrar el nombre del archivo elegido
+// ----- Vista previa de la imagen elegida -----
+// Solo se muestra mientras se llena el formulario; la imagen no se guarda en localStorage
+function ocultarVistaPrevia() {
+  if (vistaPrevia.src) URL.revokeObjectURL(vistaPrevia.src); // libera la memoria de la anterior
+  vistaPrevia.removeAttribute("src");
+  vistaPrevia.classList.remove("visible");
+}
+
+function mostrarVistaPrevia(archivo) {
+  ocultarVistaPrevia();
+  vistaPrevia.src = URL.createObjectURL(archivo);
+  vistaPrevia.classList.add("visible");
+}
+
+// Mostrar el nombre y la vista previa del archivo elegido
 inputImagen.addEventListener("change", function () {
-  archivoNombre.textContent = inputImagen.files[0] ? inputImagen.files[0].name : (imagenActual || SIN_ARCHIVO);
-  validarCampo("imagen");
+  const archivo = inputImagen.files[0];
+  archivoNombre.textContent = archivo ? archivo.name : (imagenActual || SIN_ARCHIVO);
+  const esValida = validarCampo("imagen") === "";
+  if (archivo && esValida) {
+    mostrarVistaPrevia(archivo);
+  } else {
+    ocultarVistaPrevia();
+  }
 });
