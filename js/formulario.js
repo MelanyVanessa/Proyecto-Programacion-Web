@@ -36,6 +36,7 @@ function llenarFormulario(producto) {
   form.precio.value = producto.precio;
   form.cantidad.value = producto.cantidad;
   form.estado.value = producto.estado;
+  form.nuevo.value = producto.nuevo || "";
   archivoNombre.textContent = producto.imagen || SIN_ARCHIVO;
 }
 
@@ -134,6 +135,14 @@ const reglas = {
       if (valor === "") return "Selecciona Activo o Inactivo.";
       return "";
     }
+  },
+  nuevo: {
+    etiqueta: "Nuevo",
+    resumen: "selecciona 1, 2 o 3.",
+    validar: function (valor) {
+      if (valor === "") return "Selecciona 1, 2 o 3.";
+      return "";
+    }
   }
 };
 
@@ -179,7 +188,8 @@ function leerProductoDelFormulario() {
     precio: convertirPrecio(form.precio.value),
     cantidad: Number(form.cantidad.value.trim()),
     imagen: inputImagen.files[0] ? inputImagen.files[0].name : imagenActual,
-    estado: form.estado.value
+    estado: form.estado.value,
+    nuevo: form.nuevo.value
   };
 }
 
